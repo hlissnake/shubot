@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/sehsarah/shubot/issues"
   },
-  "homepage": "https://github.com/sehsarah/shubot"
+  "homepage": "https://github.com/sehsarah/shubot",
+  "dependencies": {
+    "express": "~4.2.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "hjs": "~0.0.6",
+    "node-compass": "0.2.3"
+  }
 }
