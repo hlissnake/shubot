@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
-  </body>
+    <head>
+        <title>Shubot Mission Control</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css" media="all">
+    </head>
+    <body>
+        <h1>Shubot Mission Control</h1>
+        <div>
+            <button id="forward-btn">Forward</button>
+            <button id="left-btn">Left</button>
+            <button id="right-btn">Right</button>
+            <br />
+            <button id="reverse-btn">Reverse (hmm)</button>
+            <br />
+            <button id="stop-btn">Stop</button>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/js/vendor/zepto.min.js"></script>
+        <script src="/js/mission-control.js"></script>
+    </body>
 </html>
