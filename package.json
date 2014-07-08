@@ -1,6 +1,6 @@
 {
   "name": "shubot",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shubot Mission Control (A Raspberry Pi Arduino Robot)",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git://github.com/sehsarah/shubot.git"
   },
-  "author": "Sarah Hui",
+  "author": "Sarah Hui <sarah.a.hui@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sehsarah/shubot/issues"
@@ -24,6 +24,8 @@
     "body-parser": "~1.0.0",
     "debug": "~0.7.4",
     "hjs": "~0.0.6",
-    "node-compass": "0.2.3"
+    "node-compass": "0.2.3",
+    "johnny-five": "latest",
+    "socket.io": "~1.0.6"
   }
 }
