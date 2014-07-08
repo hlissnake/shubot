@@ -4,7 +4,7 @@
   "description": "Shubot Mission Control (A Raspberry Pi Arduino Robot)",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node app"
   },
   "repository": {
     "type": "git",
