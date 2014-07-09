@@ -1,4 +1,4 @@
-Shubot
+Shubot Mission Control
 ======
 
 A Rasperry Pi & Arduino powered robot controlled using johnny-five, socket.io & express.
