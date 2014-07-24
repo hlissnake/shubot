@@ -31,7 +31,10 @@
     app.use(bodyParser.urlencoded());
     app.use(cookieParser());
     app.use(compass({
-        mode: 'expanded'
+        mode: 'expanded',
+        sass: 'sass',
+        css: 'css',
+        cache: false
     }));
     app.use(express.static(path.join(__dirname, 'public')));
 
