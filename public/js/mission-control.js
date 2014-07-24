@@ -5,13 +5,13 @@ $(function () {
 
     var socket          = io.connect(location.origin),
         forwardBtnNode  = $('#forward-btn'),
-        reverseBtnNode  = $('#reverse-btn'),
+        //reverseBtnNode  = $('#reverse-btn'),
         stopBtnNode     = $('#stop-btn'),
         leftBtnNode     = $('#left-btn'),
         rightBtnNode    = $('#right-btn'),
         handleRobotConnected,
         handleForward,
-        handleReverse,
+        //handleReverse,
         handleStop,
         handleLeft,
         handleRight;
@@ -63,12 +63,12 @@ $(function () {
     /*
      * @method handleReverse
      */
-    handleReverse = function () {
-        console.log('reverse');
-        socket.emit('robot command', {
-            command: 'reverse'
-        });
-    };
+    // handleReverse = function () {
+    //     console.log('reverse');
+    //     socket.emit('robot command', {
+    //         command: 'reverse'
+    //     });
+    // };
 
     /*
      * @method handleStop
@@ -83,7 +83,7 @@ $(function () {
     socket.on('robot connected', handleRobotConnected);
 
     forwardBtnNode.on('click', handleForward);
-    reverseBtnNode.on('click', handleReverse);
+    //reverseBtnNode.on('click', handleReverse);
     stopBtnNode.on('click', handleStop);
     leftBtnNode.on('click', handleLeft);
     rightBtnNode.on('click', handleRight);

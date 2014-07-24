@@ -10,9 +10,6 @@
             <button id="forward-btn">Forward</button>
             <button id="left-btn">Left</button>
             <button id="right-btn">Right</button>
-            <br />
-            <button id="reverse-btn">Reverse (hmm)</button>
-            <br />
             <button id="stop-btn">Stop</button>
         </div>
         <script src="/socket.io/socket.io.js"></script>

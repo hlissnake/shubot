@@ -123,13 +123,13 @@
             console.log('forward left', timestamp);
         });
 
-        rightMotor.on('reverse', function (err, timestamp) {
-            console.log('reverse right', timestamp);
-        });
+        // rightMotor.on('reverse', function (err, timestamp) {
+        //     console.log('reverse right', timestamp);
+        // });
 
-        leftMotor.on('reverse', function (err, timestamp) {
-            console.log('reverse left', timestamp);
-        });
+        // leftMotor.on('reverse', function (err, timestamp) {
+        //     console.log('reverse left', timestamp);
+        // });
 
         robotForward = function (speed) {
             console.log('robot forward');
