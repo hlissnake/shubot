@@ -146,13 +146,20 @@
 
         robotStop = function () {
             console.log('robot stop');
+            _rightMotorStop();
+            _leftMotorStop();
+        };
 
-            // @note johnny-five only sends low signal to shut off via pwm pin
-            // this board / motor setup also needs low signal to be sent to dir pin.
-
+        // @note johnny-five only sends low signal to shut off via pwm pin
+        // this board / motor setup also needs low signal to be sent to dir pin.
+        _rightMotorStop = function () {
             rightMotor.stop();
             board.digitalWrite(rightMotor.pins.dir, 0);
+        };
 
+        // @note johnny-five only sends low signal to shut off via pwm pin
+        // this board / motor setup also needs low signal to be sent to dir pin.
+        _leftMotorStop = function () {
             leftMotor.stop();
             board.digitalWrite(leftMotor.pins.dir, 0);
         };
@@ -160,13 +167,13 @@
         robotPivotRight = function (speed) {
             console.log('robot pivot right');
             leftMotor.forward(speed);
-            rightMotor.stop();
+            _rightMotorStop();
         };
 
         robotPivotLeft = function (speed) {
             console.log('robot pivot left');
             rightMotor.forward(speed);
-            leftMotor.stop();
+            _leftMotorStop();
         };
 
         console.log('Motor listeners & methods setup');
