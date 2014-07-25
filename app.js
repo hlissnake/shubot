@@ -232,34 +232,21 @@
             console.log('Robot command received: ' + command);
 
             switch (command) {
-
             case 'forward':
                 robotForward(50);
-                //rightMotor.forward(50);
-                //leftMotor.forward(50);
                 break;
-
             case 'left':
                 robotPivotLeft(50);
                 break;
-
             case 'right':
                 robotPivotRight(50);
                 break;
-
-            // @note I don't think it can reverse... just beeps???
-            case 'reverse':
-                robotReverse(50);
-                //rightMotor.reverse(50);
-                //leftMotor.reverse(50)
-                break;
-
+            // case 'reverse':
+            //     robotReverse(50);
+            //     break;
             case 'stop':
                 robotStop();
-                //rightMotor.stop();
-                //leftMotor.stop();
                 break;
-
             default:
                 console.log('No match for command...');
                 break;
