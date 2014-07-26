@@ -8,3 +8,72 @@ body {
 a {
   color: #00B7FF;
 }
+
+html {
+  // @todo may use cover image as background to include textured logo bg.
+  //background: url(/img/shubot-mission-control-high.png) no-repeat center center fixed;
+  //@include background-size(cover);
+  background: #F1F1F2 no-repeat;
+}
+
+.shubot-logo {
+    height: 150px;
+    width: 500px;
+
+    // @note for centering
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    // @note half of width & height @todo use variables
+    margin-top: -75px;
+    margin-left: -250px;
+}
+
+.shubot-ctrl-panel {
+    width: 224px;
+    height: 224px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    // @todo use variables for all these.
+    margin-top: -112px;
+    margin-left: -112px;
+}
+
+.ctrl-panel-arrow {
+    background: url(/img/arrow.png) no-repeat center center;
+    width: 107px;
+    height: 58px;
+    position: absolute;
+}
+.ctrl-panel-arrow--left {
+    transform: rotate(270deg);
+    // @note left position must account for transform
+    // difference between halfBefore - halfAfter
+    // 53.5 - 29 = 24.5 = 25px
+    left: -25px;
+    top: 50%;
+    // @note account for half height
+    margin-top: -29px;
+}
+.ctrl-panel-arrow--right {
+    transform: rotate(90deg);
+    // @note right position must account for transform
+    right: -25px;
+    top: 50%;
+    // @note account for half height
+    margin-top: -29px;
+}
+.ctrl-panel-arrow--forward {
+    left: 50%;
+    // @note account for half width
+    margin-left: -54px;
+}
+.ctrl-panel-arrow--stop {
+    transform: rotate(180deg);
+    bottom: 0;
+    left: 50%;
+    // @note account for half width
+    margin-left: -54px;
+}
