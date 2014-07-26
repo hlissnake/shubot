@@ -16,64 +16,74 @@ html {
   background: #F1F1F2 no-repeat;
 }
 
-.shubot-logo {
-    height: 150px;
-    width: 500px;
+$shubot-logo-height: 150px;
+$shubot-logo-width: 500px;
 
-    // @note for centering
+$shubot-ctrl-panel-height: 224px;
+$shubot-ctrl-panel-width: $shubot-ctrl-panel-height;
+
+$ctrl-panel-arrow-height: 58px;
+$ctrl-panel-arrow-width: 107px;
+// @note left & right positions must account for transformation (difference between halfBefore - halfAfter * -1)
+$ctrl-panel-arrow-left-right-position: -($ctrl-panel-arrow-width / 2 - $ctrl-panel-arrow-height / 2);
+
+$shubot-container-height: $shubot-logo-height + $shubot-ctrl-panel-height;
+$shubot-container-width: $shubot-logo-width;
+
+.shubot-container {
+    height: $shubot-container-height;
+    width: $shubot-container-width;
+
+    // For centering in page.
     position: fixed;
     top: 50%;
     left: 50%;
-    // @note half of width & height @todo use variables
-    margin-top: -75px;
-    margin-left: -250px;
+    margin-top: -($shubot-container-height / 2);
+    margin-left: -($shubot-container-width / 2);
+}
+
+.shubot-logo {
+    height: $shubot-logo-height;
+    width: $shubot-logo-width;
 }
 
 .shubot-ctrl-panel {
-    width: 224px;
-    height: 224px;
-
+    height: $shubot-ctrl-panel-height;
+    width: $shubot-ctrl-panel-width;
     position: fixed;
-    top: 50%;
+}
+.shubot-ctrl-panel--center {
+    // For centering within box.
     left: 50%;
-    // @todo use variables for all these.
-    margin-top: -112px;
-    margin-left: -112px;
+    margin-left: -($shubot-ctrl-panel-width / 2);
 }
 
 .ctrl-panel-arrow {
     background: url(/img/arrow.png) no-repeat center center;
-    width: 107px;
-    height: 58px;
+    height: $ctrl-panel-arrow-height;
+    width: $ctrl-panel-arrow-width;
     position: absolute;
+}
+.ctrl-panel-arrow--left,
+.ctrl-panel-arrow--right {
+    top: 50%;
+    margin-top: -($ctrl-panel-arrow-height / 2);
 }
 .ctrl-panel-arrow--left {
     transform: rotate(270deg);
-    // @note left position must account for transform
-    // difference between halfBefore - halfAfter
-    // 53.5 - 29 = 24.5 = 25px
-    left: -25px;
-    top: 50%;
-    // @note account for half height
-    margin-top: -29px;
+    left: $ctrl-panel-arrow-left-right-position;
 }
 .ctrl-panel-arrow--right {
     transform: rotate(90deg);
-    // @note right position must account for transform
-    right: -25px;
-    top: 50%;
-    // @note account for half height
-    margin-top: -29px;
+    right: $ctrl-panel-arrow-left-right-position;
 }
-.ctrl-panel-arrow--forward {
+.ctrl-panel-arrow--forward,
+.ctrl-panel-arrow--stop {
     left: 50%;
-    // @note account for half width
-    margin-left: -54px;
+    margin-left: -($ctrl-panel-arrow-width / 2);
 }
+// @note forward variation is rotated 0deg so no need for a rule.
 .ctrl-panel-arrow--stop {
     transform: rotate(180deg);
     bottom: 0;
-    left: 50%;
-    // @note account for half width
-    margin-left: -54px;
 }
