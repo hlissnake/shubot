@@ -70,11 +70,11 @@ $shubot-container-width: $shubot-logo-width;
     margin-top: -($ctrl-panel-arrow-height / 2);
 }
 .ctrl-panel-arrow--left {
-    transform: rotate(270deg);
+    @include transform(rotate(270deg));
     left: $ctrl-panel-arrow-left-right-position;
 }
 .ctrl-panel-arrow--right {
-    transform: rotate(90deg);
+    @include transform(rotate(90deg));
     right: $ctrl-panel-arrow-left-right-position;
 }
 .ctrl-panel-arrow--forward,
@@ -84,6 +84,6 @@ $shubot-container-width: $shubot-logo-width;
 }
 // @note forward variation is rotated 0deg so no need for a rule.
 .ctrl-panel-arrow--stop {
-    transform: rotate(180deg);
+    @include transform(rotate(180deg));
     bottom: 0;
 }
