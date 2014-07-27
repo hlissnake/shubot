@@ -5,22 +5,13 @@
         <link href="/css/style.css" rel="stylesheet" type="text/css" media="all">
     </head>
     <body>
-        <!-- @todo: old control buttons will be replaced once new controls are complete -->
-        <div>
-            <button id="left-btn">Left</button>
-            <button id="forward-btn">Forward</button>
-            <button id="right-btn">Right</button>
-            <button id="stop-btn">Stop</button>
-        </div>
-
         <div class="shubot-container">
             <img class="shubot-logo" src="/img/shubot-logo.png" alt="shubot-logo" />
-            <!-- @todo: WIP new control buttons -->
             <div class="shubot-ctrl-panel shubot-ctrl-panel--center">
-                <div class="ctrl-panel-arrow ctrl-panel-arrow--left"></div>
-                <div class="ctrl-panel-arrow ctrl-panel-arrow--right"></div>
-                <div class="ctrl-panel-arrow ctrl-panel-arrow--forward"></div>
-                <div class="ctrl-panel-arrow ctrl-panel-arrow--stop"></div>
+                <button id="left-btn" class="ctrl-panel-arrow ctrl-panel-arrow--left"></button>
+                <button id="right-btn" class="ctrl-panel-arrow ctrl-panel-arrow--right"></button>
+                <button id="forward-btn" class="ctrl-panel-arrow ctrl-panel-arrow--forward"></button>
+                <button id="stop-btn" class="ctrl-panel-arrow ctrl-panel-arrow--stop"></button>
             </div>
         </div>
 

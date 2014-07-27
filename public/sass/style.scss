@@ -18,14 +18,15 @@ html {
 
 $shubot-logo-height: 150px;
 $shubot-logo-width: 500px;
+$shubot-logo-margin-bottom: 25px;
 
-$shubot-ctrl-panel-height: 224px;
-$shubot-ctrl-panel-width: $shubot-ctrl-panel-height;
-
-$ctrl-panel-arrow-height: 58px;
-$ctrl-panel-arrow-width: 107px;
+$ctrl-panel-arrow-height: 58px / 2;
+$ctrl-panel-arrow-width: 107px / 2;
 // @note left & right positions must account for transformation (difference between halfBefore - halfAfter * -1)
 $ctrl-panel-arrow-left-right-position: -($ctrl-panel-arrow-width / 2 - $ctrl-panel-arrow-height / 2);
+
+$shubot-ctrl-panel-height: $ctrl-panel-arrow-height + ($ctrl-panel-arrow-width * 2);
+$shubot-ctrl-panel-width: $shubot-ctrl-panel-height;
 
 $shubot-container-height: $shubot-logo-height + $shubot-ctrl-panel-height;
 $shubot-container-width: $shubot-logo-width;
@@ -45,6 +46,7 @@ $shubot-container-width: $shubot-logo-width;
 .shubot-logo {
     height: $shubot-logo-height;
     width: $shubot-logo-width;
+    margin-bottom: $shubot-logo-margin-bottom;
 }
 
 .shubot-ctrl-panel {
@@ -60,9 +62,16 @@ $shubot-container-width: $shubot-logo-width;
 
 .ctrl-panel-arrow {
     background: url(/img/arrow.png) no-repeat center center;
+    @include background-size(contain);
     height: $ctrl-panel-arrow-height;
     width: $ctrl-panel-arrow-width;
     position: absolute;
+    border: 0;
+    outline: none;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 .ctrl-panel-arrow--left,
 .ctrl-panel-arrow--right {
