@@ -1,7 +1,10 @@
 /*global module*/
 
-//(function () {
-//   'use strict';
+// Needs to be globally available for web sockets.
+var io;
+
+(function () {
+    'use strict';
 
     /*
      * Dependencies, app, socket.io & johnny-five setup
@@ -16,8 +19,10 @@
         http            = require('http'),
         routes          = require('./routes/index'),
         app             = express(),
-        server          = http.createServer(app),
-        io              = require('socket.io').listen(server, { log: false });
+        server          = http.createServer(app);
+
+    // Needs to be globally available for web sockets.
+    io = require('socket.io').listen(server, { log: false });
 
     /*
      * Express setup
@@ -251,4 +256,4 @@
 
     module.exports = app;
 
-//}());
+}());
