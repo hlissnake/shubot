@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="shubot-container">
-            <img class="shubot-logo" src="/img/shubot-logo.png" alt="shubot-logo" />
+            <img class="shubot-logo" src="http://i.imgur.com/x9zhoJU.png" alt="shubot-logo" />
             <div class="shubot-ctrl-panel shubot-ctrl-panel--center">
                 <button id="left-btn" class="ctrl-panel-arrow ctrl-panel-arrow--left"></button>
                 <button id="right-btn" class="ctrl-panel-arrow ctrl-panel-arrow--right"></button>
