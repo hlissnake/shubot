@@ -123,14 +123,6 @@
             console.log('forward left', timestamp);
         });
 
-        // rightMotor.on('reverse', function (err, timestamp) {
-        //     console.log('reverse right', timestamp);
-        // });
-
-        // leftMotor.on('reverse', function (err, timestamp) {
-        //     console.log('reverse left', timestamp);
-        // });
-
         robotForward = function (speed) {
             console.log('robot forward');
             rightMotor.forward(speed);
@@ -241,9 +233,6 @@
             case 'right':
                 robotPivotRight(50);
                 break;
-            // case 'reverse':
-            //     robotReverse(50);
-            //     break;
             case 'stop':
                 robotStop();
                 break;
