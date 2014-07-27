@@ -3,13 +3,17 @@
 $(function () {
     'use strict';
 
-    var socket          = io.connect(location.origin),
-        Document        = $(document),
-        forwardBtnNode  = $('#forward-btn'),
-        //reverseBtnNode  = $('#reverse-btn'),
-        stopBtnNode     = $('#stop-btn'),
-        leftBtnNode     = $('#left-btn'),
-        rightBtnNode    = $('#right-btn'),
+    var socket                  = io.connect(location.origin),
+        Document                = $(document),
+
+        forwardBtnNode          = $('#forward-btn'),
+        //reverseBtnNode        = $('#reverse-btn'),
+        stopBtnNode             = $('#stop-btn'),
+        leftBtnNode             = $('#left-btn'),
+        rightBtnNode            = $('#right-btn'),
+
+        CONTROL_ACTIVE_CLASS    = 'ctrl-panel-arrow-active',
+
         handleRobotConnected,
         handleForward,
         //handleReverse,
@@ -102,26 +106,42 @@ $(function () {
         switch (event.keyCode) {
         case 37:
             // Left arrow
+            leftBtnNode.addClass(CONTROL_ACTIVE_CLASS);
             socket.emit('robot command', {
                 command: 'left'
             });
+            setTimeout(function () {
+                leftBtnNode.removeClass(CONTROL_ACTIVE_CLASS);
+            }, 100);
             break;
         case 38:
             // Up arrow / forward arrow
+            forwardBtnNode.addClass(CONTROL_ACTIVE_CLASS);
             socket.emit('robot command', {
                 command: 'forward'
             });
+            setTimeout(function () {
+                forwardBtnNode.removeClass(CONTROL_ACTIVE_CLASS);
+            }, 100);
             break;
         case 39:
             // Right arrow
+            rightBtnNode.addClass(CONTROL_ACTIVE_CLASS);
             socket.emit('robot command', {
                 command: 'right'
             });
+            setTimeout(function () {
+                rightBtnNode.removeClass(CONTROL_ACTIVE_CLASS);
+            }, 100);
             break;
         default:
+            stopBtnNode.addClass(CONTROL_ACTIVE_CLASS);
             socket.emit('robot command', {
                 command: 'stop'
             });
+            setTimeout(function () {
+                stopBtnNode.removeClass(CONTROL_ACTIVE_CLASS);
+            }, 100);
             break;
         }
     });
