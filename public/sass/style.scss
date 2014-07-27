@@ -24,6 +24,8 @@ $ctrl-panel-arrow-height: 58px / 2;
 $ctrl-panel-arrow-width: 107px / 2;
 // @note left & right positions must account for transformation (difference between halfBefore - halfAfter * -1)
 $ctrl-panel-arrow-left-right-position: -($ctrl-panel-arrow-width / 2 - $ctrl-panel-arrow-height / 2);
+$ctrl-panel-arrow-hover-movement: 1px;
+$ctrl-panel-arrow-active-movement: 2px;
 
 $shubot-ctrl-panel-height: $ctrl-panel-arrow-height + ($ctrl-panel-arrow-width * 2);
 $shubot-ctrl-panel-width: $shubot-ctrl-panel-height;
@@ -81,18 +83,50 @@ $shubot-container-width: $shubot-logo-width;
 .ctrl-panel-arrow--left {
     @include transform(rotate(270deg));
     left: $ctrl-panel-arrow-left-right-position;
+
+    &:hover {
+        left: $ctrl-panel-arrow-left-right-position + $ctrl-panel-arrow-hover-movement;
+    }
+    &:active,
+    &.ctrl-panel-arrow-active {
+        left: $ctrl-panel-arrow-left-right-position + $ctrl-panel-arrow-active-movement;
+    }
 }
 .ctrl-panel-arrow--right {
     @include transform(rotate(90deg));
     right: $ctrl-panel-arrow-left-right-position;
+    &:hover {
+        right: $ctrl-panel-arrow-left-right-position + $ctrl-panel-arrow-hover-movement;
+    }
+    &:active,
+    &.ctrl-panel-arrow-active {
+        right: $ctrl-panel-arrow-left-right-position + $ctrl-panel-arrow-active-movement;
+    }
 }
 .ctrl-panel-arrow--forward,
 .ctrl-panel-arrow--stop {
     left: 50%;
     margin-left: -($ctrl-panel-arrow-width / 2);
 }
-// @note forward variation is rotated 0deg so no need for a rule.
+.ctrl-panel-arrow--forward {
+    // @note forward variation is rotated 0deg so no need for a rule about that.
+    &:hover {
+        top: $ctrl-panel-arrow-hover-movement;
+    }
+    &:active,
+    &.ctrl-panel-arrow-active {
+        top: $ctrl-panel-arrow-active-movement;
+    }
+}
 .ctrl-panel-arrow--stop {
     @include transform(rotate(180deg));
     bottom: 0;
+
+    &:hover {
+        bottom: $ctrl-panel-arrow-hover-movement;
+    }
+    &:active,
+    &.ctrl-panel-arrow-active {
+        bottom: $ctrl-panel-arrow-active-movement;
+    }
 }
