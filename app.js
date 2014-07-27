@@ -166,14 +166,14 @@
 
         robotPivotRight = function (speed) {
             console.log('robot pivot right');
+            rightMotor.stop();
             leftMotor.forward(speed);
-            _rightMotorStop();
         };
 
         robotPivotLeft = function (speed) {
             console.log('robot pivot left');
-            rightMotor.forward(speed);
             _leftMotorStop();
+            rightMotor.forward(speed);
         };
 
         console.log('Motor listeners & methods setup');
