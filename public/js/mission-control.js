@@ -7,7 +7,6 @@ $(function () {
         Document                = $(document),
 
         forwardBtnNode          = $('#forward-btn'),
-        //reverseBtnNode        = $('#reverse-btn'),
         stopBtnNode             = $('#stop-btn'),
         leftBtnNode             = $('#left-btn'),
         rightBtnNode            = $('#right-btn'),
@@ -16,7 +15,6 @@ $(function () {
 
         handleRobotConnected,
         handleForward,
-        //handleReverse,
         handleStop,
         handleLeft,
         handleRight;
@@ -66,16 +64,6 @@ $(function () {
     };
 
     /*
-     * @method handleReverse
-     */
-    // handleReverse = function () {
-    //     console.log('reverse');
-    //     socket.emit('robot command', {
-    //         command: 'reverse'
-    //     });
-    // };
-
-    /*
      * @method handleStop
      */
     handleStop = function () {
@@ -94,7 +82,6 @@ $(function () {
      * Bind robot control buttons
      */
     forwardBtnNode.on('click', handleForward);
-    //reverseBtnNode.on('click', handleReverse);
     stopBtnNode.on('click', handleStop);
     leftBtnNode.on('click', handleLeft);
     rightBtnNode.on('click', handleRight);
@@ -135,6 +122,7 @@ $(function () {
             }, 100);
             break;
         default:
+            // Back arrow acts as stop.
             stopBtnNode.addClass(CONTROL_ACTIVE_CLASS);
             socket.emit('robot command', {
                 command: 'stop'
