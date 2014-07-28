@@ -88,7 +88,9 @@ var io;
         robotReverse,
         robotStop,
         robotPivotRight,
-        robotPivotLeft;
+        robotPivotLeft,
+        _rightMotorStop,
+        _leftMotorStop;
 
     /*
      * @method handleBoardReady
