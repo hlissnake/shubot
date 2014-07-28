@@ -163,13 +163,13 @@ var io;
 
         robotPivotRight = function (speed) {
             console.log('robot pivot right');
-            rightMotor.stop();
+            robotStop();
             leftMotor.forward(speed);
         };
 
         robotPivotLeft = function (speed) {
             console.log('robot pivot left');
-            _leftMotorStop();
+            robotStop();
             rightMotor.forward(speed);
         };
 
