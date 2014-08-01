@@ -96,86 +96,23 @@ var io;
      * @method handleBoardReady
      */
     handleBoardReady = function () {
+        var shubot;
+
         console.log('Board is connected – YAY');
 
-        rightMotor  = new five.Motor([6, 7]);
-        leftMotor   = new five.Motor([4, 5]);
+        shubot = new Shubot({
+            pins: {
+                right: [6, 7],
+                left: [4, 5]
+            }
+        });
 
         board.repl.inject({
-            motorRight: rightMotor,
-            motorLeft: leftMotor
+            motorRight: shubot.rightMotor,
+            motorLeft: shubot.leftMotor
         });
 
-        rightMotor.on('start', function (err, timestamp) {
-            console.log('start right', timestamp);
-        });
-
-        leftMotor.on('start', function (err, timestamp) {
-            console.log('start left', timestamp);
-        });
-
-        rightMotor.on('stop', function (err, timestamp) {
-            console.log('stop right', timestamp);
-        });
-
-        leftMotor.on('stop', function (err, timestamp) {
-            console.log('stop left', timestamp);
-        });
-
-        rightMotor.on('forward', function (err, timestamp) {
-            console.log('forward right', timestamp);
-        });
-
-        leftMotor.on('forward', function (err, timestamp) {
-            console.log('forward left', timestamp);
-        });
-
-        robotForward = function (speed) {
-            console.log('robot forward');
-            rightMotor.forward(speed);
-            leftMotor.forward(speed);
-        };
-
-        // @todo seems dir pins 0/1 for different directions, not really working...
-        robotReverse = function (speed) {
-            console.log('robot reverse');
-            rightMotor.reverse(speed);
-            leftMotor.reverse(speed);
-        };
-
-        robotStop = function () {
-            console.log('robot stop');
-            _rightMotorStop();
-            _leftMotorStop();
-        };
-
-        // @note johnny-five only sends low signal to shut off via pwm pin
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        _rightMotorStop = function () {
-            rightMotor.stop();
-            board.digitalWrite(rightMotor.pins.dir, 0);
-        };
-
-        // @note johnny-five only sends low signal to shut off via pwm pin
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        _leftMotorStop = function () {
-            leftMotor.stop();
-            board.digitalWrite(leftMotor.pins.dir, 0);
-        };
-
-        robotPivotRight = function (speed) {
-            console.log('robot pivot right');
-            robotStop();
-            leftMotor.forward(speed);
-        };
-
-        robotPivotLeft = function (speed) {
-            console.log('robot pivot left');
-            robotStop();
-            rightMotor.forward(speed);
-        };
-
-        console.log('Motor listeners & methods setup');
+        console.log('Shubot created & board setup');
     };
 
     /*
