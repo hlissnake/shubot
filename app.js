@@ -25,7 +25,7 @@ var io;
         app             = express(),
         server          = http.createServer(app),
 
-        _handleConnection;
+        _handleConnection,
         _handleBoardReady,
         _handleBoardError,
 
