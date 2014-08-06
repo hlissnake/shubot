@@ -7,7 +7,7 @@ var io;
     'use strict';
 
     /*
-     * Dependencies, app, socket.io & johnny-five setup
+     * Dependencies, app, socket.io, johnny-five & shubot setup
      */
     var express         = require('express'),
         path            = require('path'),
@@ -18,8 +18,20 @@ var io;
         compass         = require('node-compass'),
         http            = require('http'),
         routes          = require('./routes/index'),
+
+        five            = require('johnny-five'),
+        Shubot          = require('./public/js/shubot'),
+
         app             = express(),
-        server          = http.createServer(app);
+        server          = http.createServer(app),
+
+        _handleConnection;
+        _handleBoardReady,
+        _handleBoardError,
+
+        port,
+        board,
+        shubot;
 
     // Needs to be globally available for web sockets.
     io = require('socket.io').listen(server, { log: false });
@@ -76,19 +88,10 @@ var io;
         });
     });
 
-    ///////////// JOHNNY MODULE // @todo separate module;
-
-    var five    = require('johnny-five'),
-        Shubot  = require('./public/js/shubot'),
-        board   = new five.Board(),
-        handleBoardReady,
-        handleBoardError,
-        shubot;
-
     /*
      * @method handleBoardReady
      */
-    handleBoardReady = function () {
+    _handleBoardReady = function () {
         console.log('Board is connected – YAY');
 
         shubot = new Shubot({
@@ -106,25 +109,19 @@ var io;
      * @method handleBoardError
      * @param error
      */
-    handleBoardError = function (error) {
+    _handleBoardError = function (error) {
         console.log('Awno board error');
         console.log(error);
         process.exit();
     };
 
-    board.on('ready', handleBoardReady);
-    board.on('error', handleBoardError);
+    board = new five.Board();
+
+    board.on('ready', _handleBoardReady);
+    board.on('error', _handleBoardError);
     console.log('Waiting for device to connect...');
 
-    ////////////
-
-    // MY APP STARTS HERE // @todo separate module?
-
-    /*
-     * Setup
-     */
-    var port = app.get('port'),
-        handleConnection;
+    port = app.get('port');
 
     console.log('Waiting for socket connection...');
     console.log('Listening on ' + port);
@@ -134,8 +131,8 @@ var io;
      * @method handleConnection
      * @param socket
      */
-    handleConnection = function (socket) {
-        var handleCommand;
+    _handleConnection = function (socket) {
+        var _handleCommand;
 
         console.log('Sockets connected - YAY');
 
@@ -149,7 +146,7 @@ var io;
          * @method handleCommand
          * @param data
          */
-        handleCommand = function (data) {
+        _handleCommand = function (data) {
             var command = data.command;
             console.log('Robot command received: ' + command);
 
@@ -178,10 +175,10 @@ var io;
             }
         };
 
-        socket.on('robot command', handleCommand);
+        socket.on('robot command', _handleCommand);
     };
 
-    io.sockets.on('connection', handleConnection);
+    io.sockets.on('connection', _handleConnection);
     console.log('Bind socket connection...');
 
     module.exports = app;
