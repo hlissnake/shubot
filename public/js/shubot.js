@@ -8,11 +8,7 @@
     'use strict';
 
     var five = require('johnny-five'),
-        Shubot,
-
-        // Private methods
-        _stopRight,
-        _stopLeft;
+        Shubot;
 
     /**
      * @constructor Shubot
@@ -20,30 +16,6 @@
      */
     Shubot = function (options) {
         this.init(options.board, options.pins);
-    };
-
-    /*
-     * Stop the right motor.
-     * @private
-     * @method _stopRight
-     */
-    _stopRight = function () {
-        this.rightMotor.stop();
-        // @note johnny-five only sends low signal to shut off via pwm pin,
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        board.digitalWrite(rightMotor.pins.dir, 0);
-    };
-
-    /*
-     * Stop the left motor.
-     * @private
-     * @method _stopLeft
-     */
-    _stopLeft = function () {
-        this.leftMotor.stop();
-        // @note johnny-five only sends low signal to shut off via pwm pin,
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        board.digitalWrite(leftMotor.pins.dir, 0);
     };
 
     /*
@@ -112,7 +84,33 @@
      * @method stop
      */
     Shubot.prototype.stop = function () {
+        var _stopRight,
+            _stopLeft;
+
+        /*
+         * Stop the right motor.
+         * @private
+         * @method _stopRight
+         */
+        _stopRight = function () {
+            this.rightMotor.stop();
+            // @note johnny-five only sends low signal to shut off via pwm pin,
+            // this board / motor setup also needs low signal to be sent to dir pin.
+            board.digitalWrite(rightMotor.pins.dir, 0);
+        };
+
+        /*
+         * Stop the left motor.
+         * @private
+         * @method _stopLeft
+         */
+        _stopLeft = function () {
+            this.leftMotor.stop();
+            board.digitalWrite(leftMotor.pins.dir, 0);
+        };
+
         console.log('robot stop');
+
         _stopRight();
         _stopLeft();
     };
