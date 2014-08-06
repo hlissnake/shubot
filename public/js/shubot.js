@@ -108,8 +108,8 @@
      */
     Shubot.prototype.stop = function () {
         console.log('robot stop');
-        _rightStop();
-        _leftStop();
+        _stopRight();
+        _stopLeft();
     };
 
     /*
@@ -118,8 +118,8 @@
      * @param speed {Number}
      */
     Shubot.prototype.left = function (speed) {
-        console.log('robot pivot left');
-        robotStop();
+        console.log('robot left');
+        this.stop();
         this.rightMotor.forward(speed);
     };
 
@@ -129,8 +129,8 @@
      * @param speed {Number}
      */
     Shubot.prototype.right = function (speed) {
-        console.log('robot pivot right');
-        robotStop();
+        console.log('robot right');
+        this.stop();
         this.leftMotor.forward(speed);
     };
 
