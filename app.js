@@ -79,6 +79,7 @@ var io;
     ///////////// JOHNNY MODULE // @todo separate module;
 
     var five    = require('johnny-five'),
+        Shubot  = require('./public/js/shubot'),
         board   = new five.Board(),
         handleBoardReady,
         handleBoardError,
@@ -141,7 +142,6 @@ var io;
         socket.emit('robot connected', {
             data: 'Connected'
         });
-
         console.log('command emmitted');
 
         /*
@@ -150,7 +150,6 @@ var io;
          */
         handleCommand = function (data) {
             var command = data.command;
-
             console.log('Robot command received: ' + command);
 
             switch (command) {
@@ -176,7 +175,6 @@ var io;
     };
 
     io.sockets.on('connection', handleConnection);
-
     console.log('bind connection');
 
     module.exports = app;
