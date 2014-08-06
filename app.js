@@ -153,6 +153,12 @@ var io;
             var command = data.command;
             console.log('Robot command received: ' + command);
 
+            if (!shubot) {
+                // For instance when running the app a few times some commands are
+                // leftover and caught here, yet shubot has not yet been re-defined.
+                return;
+            }
+
             switch (command) {
             case 'forward':
                 shubot.forward(50);
