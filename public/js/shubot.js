@@ -35,7 +35,7 @@
             motorLeft: this.leftMotor
         });
 
-        console.log('Shubot: initialised & board setup');
+        console.log('Shubot: initialised');
     };
 
     /*
