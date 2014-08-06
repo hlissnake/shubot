@@ -15,20 +15,22 @@
      * @param options {Object}
      */
     Shubot = function (options) {
-        this.init(options.board, options.pins);
+        this.board = options.board;
+
+        this.init(options.pins);
     };
 
     /*
      * Initialise Shubot.
      * @method init
      */
-    Shubot.prototype.init = function (board, pins) {
+    Shubot.prototype.init = function (pins) {
         // Create motors
         this.rightMotor = new five.Motor(pins.right);
         this.leftMotor  = new five.Motor(pins.left);
 
         // Inject into repl
-        board.repl.inject({
+        this.board.repl.inject({
             motorRight: this.rightMotor,
             motorLeft: this.leftMotor
         });
@@ -84,35 +86,21 @@
      * @method stop
      */
     Shubot.prototype.stop = function () {
-        var _stopRight,
-            _stopLeft;
+        console.log('robot stop');
 
         /*
          * Stop the right motor.
-         * @private
-         * @method _stopRight
          */
-        _stopRight = function () {
-            this.rightMotor.stop();
-            // @note johnny-five only sends low signal to shut off via pwm pin,
-            // this board / motor setup also needs low signal to be sent to dir pin.
-            board.digitalWrite(rightMotor.pins.dir, 0);
-        };
+        this.rightMotor.stop();
+        // @note johnny-five only sends low signal to shut off via pwm pin,
+        // this board / motor setup also needs low signal to be sent to dir pin.
+        this.board.digitalWrite(this.rightMotor.pins.dir, 0);
 
         /*
          * Stop the left motor.
-         * @private
-         * @method _stopLeft
          */
-        _stopLeft = function () {
-            this.leftMotor.stop();
-            board.digitalWrite(leftMotor.pins.dir, 0);
-        };
-
-        console.log('robot stop');
-
-        _stopRight();
-        _stopLeft();
+        this.leftMotor.stop();
+        this.board.digitalWrite(this.leftMotor.pins.dir, 0);
     };
 
     /*
