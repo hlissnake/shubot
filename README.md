@@ -7,7 +7,7 @@ Run `npm install` followed by `npm start` which will serve a page at `<your ip a
 
 #### Kit
 
-- Minkits Brainboard Tank – http://www.mindkits.co.nz/store/kits/brainboard-tank-robot-with-bluetooth-control (the brainboard is a custom variation of the Arduino Nano)
+- <a href="http://www.mindkits.co.nz/store/kits/brainboard-tank-robot-with-bluetooth-control">Mindkits Brainboard Tank</a> (the brainboard is a custom variation of the Arduino Nano)
 - Raspberry Pi (+ wifi USB dongle)
 - Arduino (brainboard) is connected to the Raspberry Pi (both boards mounted to tank along with a power supply for each)
 - Motors are connected to the Arduino
