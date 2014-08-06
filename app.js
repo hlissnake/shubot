@@ -7,7 +7,7 @@ var io;
     'use strict';
 
     /*
-     * Dependencies, app, socket.io & johnny-five setup
+     * Dependencies, app, socket.io, johnny-five & shubot setup
      */
     var express         = require('express'),
         path            = require('path'),
@@ -18,8 +18,20 @@ var io;
         compass         = require('node-compass'),
         http            = require('http'),
         routes          = require('./routes/index'),
+
+        five            = require('johnny-five'),
+        Shubot          = require('./public/js/shubot'),
+
         app             = express(),
-        server          = http.createServer(app);
+        server          = http.createServer(app),
+
+        _handleConnection,
+        _handleBoardReady,
+        _handleBoardError,
+
+        port,
+        board,
+        shubot;
 
     // Needs to be globally available for web sockets.
     io = require('socket.io').listen(server, { log: false });
@@ -44,7 +56,7 @@ var io;
     app.use(express.static(path.join(__dirname, 'public')));
 
     /*
-     * Routes
+     * Express routes
      */
     app.use('/', routes);
 
@@ -76,172 +88,81 @@ var io;
         });
     });
 
-    ///////////// JOHNNY MODULE // @todo separate module
-
-    var five    = require('johnny-five'),
-        board   = new five.Board(),
-        handleBoardReady,
-        handleBoardError,
-        rightMotor,
-        leftMotor,
-        robotForward,
-        robotReverse,
-        robotStop,
-        robotPivotRight,
-        robotPivotLeft,
-        _rightMotorStop,
-        _leftMotorStop;
+    // App methods for johnny-five & sockets
 
     /*
+     * Executed when Brainboard is ready, we can create Shubot.
      * @method handleBoardReady
      */
-    handleBoardReady = function () {
+    _handleBoardReady = function () {
         console.log('Board is connected – YAY');
 
-        rightMotor  = new five.Motor([6, 7]);
-        leftMotor   = new five.Motor([4, 5]);
-
-        board.repl.inject({
-            motorRight: rightMotor,
-            motorLeft: leftMotor
+        shubot = new Shubot({
+            board: board,
+            pins: {
+                right: [6, 7],
+                left: [4, 5]
+            }
         });
 
-        rightMotor.on('start', function (err, timestamp) {
-            console.log('start right', timestamp);
-        });
-
-        leftMotor.on('start', function (err, timestamp) {
-            console.log('start left', timestamp);
-        });
-
-        rightMotor.on('stop', function (err, timestamp) {
-            console.log('stop right', timestamp);
-        });
-
-        leftMotor.on('stop', function (err, timestamp) {
-            console.log('stop left', timestamp);
-        });
-
-        rightMotor.on('forward', function (err, timestamp) {
-            console.log('forward right', timestamp);
-        });
-
-        leftMotor.on('forward', function (err, timestamp) {
-            console.log('forward left', timestamp);
-        });
-
-        robotForward = function (speed) {
-            console.log('robot forward');
-            rightMotor.forward(speed);
-            leftMotor.forward(speed);
-        };
-
-        // @todo seems dir pins 0/1 for different directions, not really working...
-        robotReverse = function (speed) {
-            console.log('robot reverse');
-            rightMotor.reverse(speed);
-            leftMotor.reverse(speed);
-        };
-
-        robotStop = function () {
-            console.log('robot stop');
-            _rightMotorStop();
-            _leftMotorStop();
-        };
-
-        // @note johnny-five only sends low signal to shut off via pwm pin
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        _rightMotorStop = function () {
-            rightMotor.stop();
-            board.digitalWrite(rightMotor.pins.dir, 0);
-        };
-
-        // @note johnny-five only sends low signal to shut off via pwm pin
-        // this board / motor setup also needs low signal to be sent to dir pin.
-        _leftMotorStop = function () {
-            leftMotor.stop();
-            board.digitalWrite(leftMotor.pins.dir, 0);
-        };
-
-        robotPivotRight = function (speed) {
-            console.log('robot pivot right');
-            robotStop();
-            leftMotor.forward(speed);
-        };
-
-        robotPivotLeft = function (speed) {
-            console.log('robot pivot left');
-            robotStop();
-            rightMotor.forward(speed);
-        };
-
-        console.log('Motor listeners & methods setup');
+        console.log('Shubot created');
     };
 
     /*
+     * Executed if Brainboard encounters an error.
      * @method handleBoardError
      * @param error
      */
-    handleBoardError = function (error) {
+    _handleBoardError = function (error) {
         console.log('Awno board error');
         console.log(error);
         process.exit();
     };
 
-    board.on('ready', handleBoardReady);
-    board.on('error', handleBoardError);
-    console.log('Waiting for device to connect...');
-
-    ////////////
-
-    // MY APP STARTS HERE // @todo separate module?
-
     /*
-     * Setup
-     */
-    var handleConnection;
-
-    console.log('Waiting for socket connection...');
-    console.log('Listening on ' + app.get('port'));
-    server.listen(app.get('port'));
-
-    /*
+     * Executed when socket connection is made, so we can begin receiving commands.
      * @method handleConnection
      * @param socket
      */
-    handleConnection = function (socket) {
-        var handleCommand;
+    _handleConnection = function (socket) {
+        var _handleCommand;
 
-        console.log('sockets connected');
+        console.log('Sockets connected - YAY');
 
         // Send out a message (only to the one who connected)
         socket.emit('robot connected', {
             data: 'Connected'
         });
-
-        console.log('command emmitted');
+        console.log('Command emmitted');
 
         /*
+         * Executed when command received via socket, handles
+         * robot commands: forward, left, right & stop.
          * @method handleCommand
          * @param data
          */
-        handleCommand = function (data) {
+        _handleCommand = function (data) {
             var command = data.command;
-
             console.log('Robot command received: ' + command);
+
+            if (!shubot) {
+                // For instance when running the app a few times some commands are
+                // leftover and caught here, yet shubot has not yet been re-defined.
+                return;
+            }
 
             switch (command) {
             case 'forward':
-                robotForward(50);
+                shubot.forward(50);
                 break;
             case 'left':
-                robotPivotLeft(50);
+                shubot.left(50);
                 break;
             case 'right':
-                robotPivotRight(50);
+                shubot.right(50);
                 break;
             case 'stop':
-                robotStop();
+                shubot.stop();
                 break;
             default:
                 console.log('No match for command...');
@@ -249,12 +170,26 @@ var io;
             }
         };
 
-        socket.on('robot command', handleCommand);
+        socket.on('robot command', _handleCommand);
     };
 
-    io.sockets.on('connection', handleConnection);
+    /*
+     * Running the juicy app.
+     */
 
-    console.log('bind connection');
+    board   = new five.Board();
+    port    = app.get('port');
+
+    board.on('ready', _handleBoardReady);
+    board.on('error', _handleBoardError);
+    console.log('Waiting for device to connect...');
+
+    console.log('Waiting for socket connection...');
+    console.log('Listening on ' + port);
+    server.listen(port);
+
+    io.sockets.on('connection', _handleConnection);
+    console.log('Bind socket connection...');
 
     module.exports = app;
 
