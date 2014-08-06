@@ -76,40 +76,26 @@ var io;
         });
     });
 
-    ///////////// JOHNNY MODULE // @todo separate module
+    ///////////// JOHNNY MODULE // @todo separate module;
 
     var five    = require('johnny-five'),
         board   = new five.Board(),
         handleBoardReady,
         handleBoardError,
-        rightMotor,
-        leftMotor,
-        robotForward,
-        robotReverse,
-        robotStop,
-        robotPivotRight,
-        robotPivotLeft,
-        _rightMotorStop,
-        _leftMotorStop;
+        shubot;
 
     /*
      * @method handleBoardReady
      */
     handleBoardReady = function () {
-        var shubot;
-
         console.log('Board is connected – YAY');
 
         shubot = new Shubot({
+            board: board,
             pins: {
                 right: [6, 7],
                 left: [4, 5]
             }
-        });
-
-        board.repl.inject({
-            motorRight: shubot.rightMotor,
-            motorLeft: shubot.leftMotor
         });
 
         console.log('Shubot created & board setup');
@@ -169,16 +155,16 @@ var io;
 
             switch (command) {
             case 'forward':
-                robotForward(50);
+                shubot.forward(50);
                 break;
             case 'left':
-                robotPivotLeft(50);
+                shubot.left(50);
                 break;
             case 'right':
-                robotPivotRight(50);
+                shubot.right(50);
                 break;
             case 'stop':
-                robotStop();
+                shubot.stop();
                 break;
             default:
                 console.log('No match for command...');
