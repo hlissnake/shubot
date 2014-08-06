@@ -56,7 +56,7 @@ var io;
     app.use(express.static(path.join(__dirname, 'public')));
 
     /*
-     * Routes
+     * Express routes
      */
     app.use('/', routes);
 
@@ -88,7 +88,10 @@ var io;
         });
     });
 
+    // App methods for johnny-five & sockets
+
     /*
+     * Executed when Brainboard is ready, we can create Shubot.
      * @method handleBoardReady
      */
     _handleBoardReady = function () {
@@ -102,10 +105,11 @@ var io;
             }
         });
 
-        console.log('Shubot created & board setup');
+        console.log('Shubot created');
     };
 
     /*
+     * Executed if Brainboard encounters an error.
      * @method handleBoardError
      * @param error
      */
@@ -115,19 +119,8 @@ var io;
         process.exit();
     };
 
-    board = new five.Board();
-
-    board.on('ready', _handleBoardReady);
-    board.on('error', _handleBoardError);
-    console.log('Waiting for device to connect...');
-
-    port = app.get('port');
-
-    console.log('Waiting for socket connection...');
-    console.log('Listening on ' + port);
-    server.listen(port);
-
     /*
+     * Executed when socket connection is made, so we can begin receiving commands.
      * @method handleConnection
      * @param socket
      */
@@ -143,6 +136,8 @@ var io;
         console.log('Command emmitted');
 
         /*
+         * Executed when command received via socket, handles
+         * robot commands: forward, left, right & stop.
          * @method handleCommand
          * @param data
          */
@@ -177,6 +172,21 @@ var io;
 
         socket.on('robot command', _handleCommand);
     };
+
+    /*
+     * Running the juicy app.
+     */
+
+    board   = new five.Board();
+    port    = app.get('port');
+
+    board.on('ready', _handleBoardReady);
+    board.on('error', _handleBoardError);
+    console.log('Waiting for device to connect...');
+
+    console.log('Waiting for socket connection...');
+    console.log('Listening on ' + port);
+    server.listen(port);
 
     io.sockets.on('connection', _handleConnection);
     console.log('Bind socket connection...');
