@@ -14,10 +14,7 @@
      * @param options {Object}
      */
     Shubot = function (options) {
-        this.rightMotor  = new five.Motor(options.pins.right);
-        this.leftMotor   = new five.Motor(options.pins.left);
-
-        this.init();
+        this.init(options.board, options.pins);
     };
 
     /*
@@ -44,8 +41,22 @@
         board.digitalWrite(leftMotor.pins.dir, 0);
     };
 
-    Shubot.prototype.init = function () {
-        console.log('Shubot: initialised');
+    /*
+     * Initialise Shubot.
+     * @method init
+     */
+    Shubot.prototype.init = function (board, pins) {
+        // Create motors
+        this.rightMotor = new five.Motor(pins.right);
+        this.leftMotor  = new five.Motor(pins.left);
+
+        // Inject into repl
+        board.repl.inject({
+            motorRight: this.rightMotor,
+            motorLeft: this.leftMotor
+        });
+
+        console.log('Shubot: initialised & board setup');
     };
 
     /*
@@ -123,6 +134,6 @@
         this.leftMotor.forward(speed);
     };
 
-    return Shubot;
+    module.exports = Shubot;
 
 }());
