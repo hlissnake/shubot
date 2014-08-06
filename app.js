@@ -123,11 +123,12 @@ var io;
     /*
      * Setup
      */
-    var handleConnection;
+    var port = app.get('port'),
+        handleConnection;
 
     console.log('Waiting for socket connection...');
-    console.log('Listening on ' + app.get('port'));
-    server.listen(app.get('port'));
+    console.log('Listening on ' + port);
+    server.listen(port);
 
     /*
      * @method handleConnection
@@ -136,13 +137,13 @@ var io;
     handleConnection = function (socket) {
         var handleCommand;
 
-        console.log('sockets connected');
+        console.log('Sockets connected - YAY');
 
         // Send out a message (only to the one who connected)
         socket.emit('robot connected', {
             data: 'Connected'
         });
-        console.log('command emmitted');
+        console.log('Command emmitted');
 
         /*
          * @method handleCommand
@@ -175,7 +176,7 @@ var io;
     };
 
     io.sockets.on('connection', handleConnection);
-    console.log('bind connection');
+    console.log('Bind socket connection...');
 
     module.exports = app;
 
