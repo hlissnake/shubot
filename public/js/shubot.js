@@ -1,6 +1,8 @@
 /*global require, module*/
 /**
- * Tank robot controlled by the BrainBoard & two motors.
+ * Tank robot controlled by the BrainBoard (arduino nano) & two motors.
+ *
+ * http://www.mindkits.co.nz/store/kits/brainboard-tank-robot-with-bluetooth-control
  *
  * @module Shubot
  */
@@ -13,10 +15,22 @@
     /**
      * @constructor Shubot
      * @param options {Object}
+     *
+     *      @param options.board {Board}
+     *          The johnny-five board instance (assumed ready).
+     *
+     *      @param options.pins {Object}
+     *
+     *          @param options.right {Array}
+     *                 Array of two numbers corresponding to the pwm & dir pins of the right motor.
+     *                 e.g. [6, 7] for the BrainBoard tank.
+     *
+     *          @param options.left {Array}
+     *                 Array of two numbers corresponding to the pwm & dir pins of the left motor.
+     *                 e.g. [4, 5] for the BrainBoard tank.
      */
     Shubot = function (options) {
         this.board = options.board;
-
         this.init(options.pins);
     };
 
