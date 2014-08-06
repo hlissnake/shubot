@@ -1,16 +1,21 @@
 /*global require, module*/
+/**
+ * Tank robot controlled by the BrainBoard & two motors.
+ *
+ * @module Shubot
+ */
 (function () {
     'use strict';
 
     var five = require('johnny-five'),
         Shubot,
+
+        // Private methods
         _stopRight,
         _stopLeft;
 
     /**
-     * Tank robot controlled by the BrainBoard & two motors.
-     *
-     * @constructor Shutbot
+     * @constructor Shubot
      * @param options {Object}
      */
     Shubot = function (options) {
