@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/x9zhoJU.png" />
+<img src="http://i.imgur.com/zb0SNik.png" />
 ======
 
 A Rasperry Pi & Arduino powered robot controlled using johnny-five, socket.io & express.
@@ -18,7 +18,7 @@ Logo thanks to [Jacky Lee](http://jackylee.co/100logos/2014/07/09/day-33.html)
 
 - `ssh` into the Raspberry Pi (which is set up to connect to iPhone personal hotspot Wifi) from device on the same network
 - Navigate to shubot project folder & run the program `npm start` to serve the page from there
-- Browse to the page at `<Pi ip address>:3000` on any other device and use the buttons/keyboard to control the tank
+- Browse to the page at `<Pi ip address>:3000` on any other device and use the buttons or keyboard controls to drive the tank
 
 #### Presentation
 
