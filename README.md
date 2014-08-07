@@ -1,9 +1,11 @@
-Shubot Mission Control
+<img src="http://i.imgur.com/x9zhoJU.png" />
 ======
 
 A Rasperry Pi & Arduino powered robot controlled using johnny-five, socket.io & express.
 
 Run `npm install` followed by `npm start` which will serve a page at `<your ip address>:3000`
+
+Logo thanks to [Jacky Lee](http://jackylee.co/100logos/2014/07/09/day-33.html)
 
 #### Kit
 
@@ -23,7 +25,3 @@ Run `npm install` followed by `npm start` which will serve a page at `<your ip a
 This project was presented at <a href="http://wdcnz.com/">WDCNZ 2014</a>
 
 Slides & video recording will be included here when available
-
-<img src="http://i.imgur.com/NaHdvBi.png" />
-
-Logo thanks to [Jacky Lee](http://jackylee.co/100logos/2014/07/09/day-33.html)
