@@ -1,4 +1,4 @@
-<img src="http://i.imgur.com/zb0SNik.png" />
+<img src="http://i.imgur.com/7xXeTU9.png" />
 ======
 
 A Rasperry Pi & Arduino powered robot controlled using johnny-five, socket.io & express.
