@@ -20,8 +20,10 @@ Run `npm install` followed by `npm start` which will serve a page at `<your ip a
 
 #### Presentation
 
-This project was presented at <a href="http://wdcnz.com/">WDCNZ 2014</a>
+This project was presented at <a href="http://wdcnz.com/">WDCNZ 2014</a> and <a href="https://skillsmatter.com/conferences/6361-fullstack-node-and-javascript-conference#program">Skillsmatter FullStack 2014</a>
 
-Slides & video recording will be included here when available.
+[WDCNZ video recording](http://vimeo.com/103375953)
+
+FullStack video recording & online slides will be included here when available.
 
 Logo thanks to [Jacky Lee](http://jackylee.co/100logos/2014/07/09/day-33.html)
