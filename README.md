@@ -18,6 +18,8 @@ Run `npm install` followed by `npm start` which will serve a page at `<your ip a
 - Navigate to shubot project folder & run the program `npm start` to serve the page from there
 - Browse to the page at `<Pi ip address>:3000` on any other device and use the buttons or keyboard controls to drive the tank
 
+See Shubot in action at Vend in <a href="http://vimeo.com/102292800">this video</a>
+
 #### Presentation
 
 This project was presented at <a href="http://wdcnz.com/">WDCNZ 2014</a> and <a href="https://skillsmatter.com/conferences/6361-fullstack-node-and-javascript-conference#program">Skillsmatter FullStack 2014</a>
